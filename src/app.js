@@ -1,9 +1,10 @@
 import React from 'react';
+import MovieList from './layout/MovieList';
 
 function App() {
   return (
     <div className="movies">
-      <h1>Test Server Hello !</h1>
+      <MovieList />
     </div>
   );
 }
