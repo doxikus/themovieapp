@@ -1,5 +1,6 @@
 import React from "react";
-import { MovieListContainer, MovieItem } from "../components";
+import { MovieListContainer, MovieItem, MovieTitle } from "../components";
+import MovieImage from "../components/Movies/MovieImage";
 
 const BASE_URL = 
  "https://api.themoviedb.org/3/discover/movie?api_key=016941c41981a8671ff585ff9e4e867e&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="
@@ -53,8 +54,10 @@ function ListFetchedMovies (){
         <div> 
             <ol>
             {movies.map(themovie => (            
-                <MovieItem key={themovie.id}>
-                    {themovie.title}
+                <MovieItem key={themovie.id}>                    
+                    <MovieTitle title={themovie.title} />  
+                    <MovieImage image={themovie.poster_path} />
+                                      
                 </MovieItem>                                                
             ))}
             </ol>
