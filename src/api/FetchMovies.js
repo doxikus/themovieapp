@@ -1,17 +1,16 @@
-import React from "react";
-import { MovieListContainer, MovieItem, MovieTitle } from "../components";
-import MovieImage from "../components/Movies/MovieImage";
+import React, { useState, useEffect } from "react";
 
 const BASE_URL = 
  "https://api.themoviedb.org/3/discover/movie?api_key=016941c41981a8671ff585ff9e4e867e&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="
 
 function useFetchMovies () {
-    const [movies, setMovies] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [error, setError] = React.useState(null);
-    const [number, setNumber] = React.useState(1);
+    const [movies, setMovies] = useState([]);
+    const [moviesid, setMoviesId] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [number, setNumber] = useState(1);
 
-    React.useEffect(() => {
+    useEffect(() => {
         setIsLoading(true);
         // fetch(BASE_URL)
         fetch(`${BASE_URL}${number}`)
@@ -26,6 +25,7 @@ function useFetchMovies () {
             .then(res => {
                 // setMovies(movies.results);
                 setMovies([...movies, ...res.results]);
+                setMoviesId(res.results);
                 setIsLoading(false);  
                               
             })
@@ -35,36 +35,10 @@ function useFetchMovies () {
     }, [number])
     const loadMore = () => {
         setNumber(number + 1);
-      };
-    return{movies, isLoading, error, loadMore}    
+      };    
+    return{movies, moviesid, isLoading, error, loadMore}    
 }
-function ListFetchedMovies (){
-    
-    const {movies, isLoading, error, loadMore} = useFetchMovies()
-    console.log(movies)
-    if (error) {
-        return <p style={{ color: 'red' }}>{error.message}</p>
-      }
-    
-      if (isLoading) {
-        return <p>Loading movies...</p>
-      }
-    
-      return (
-        <div> 
-            <ol>
-            {movies.map(themovie => (            
-                <MovieItem key={themovie.id}>                    
-                    <MovieTitle title={themovie.title} />  
-                    <MovieImage image={themovie.poster_path} />
-                                      
-                </MovieItem>                                                
-            ))}
-            </ol>
-            <button title="Load More" onClick={loadMore}>Load 20 more</button>
-        </div>
-      );  
-}
-export default ListFetchedMovies;
+
+export default useFetchMovies;
 
 

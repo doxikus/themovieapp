@@ -1,5 +1,8 @@
 import React from 'react';
-function MovieListContainer(props) {
-    return <ul className="movie-list-wrapper"></ul>;
+
+function MovieListContainer({ name, ...restProps }) {
+    return (
+      <ol {...restProps}></ol>
+    );      
   }
 export default MovieListContainer;

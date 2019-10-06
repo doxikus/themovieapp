@@ -5,7 +5,7 @@ const MovieImage = (props) => {
         <figure>
             {
                 props.image == null ? <img src={`https://via.placeholder.com/185`} alt="defualt image" /> :
-                <img src={`http://image.tmdb.org/t/p/w185${props.image}`} alt="right image" />
+                <img src={`http://image.tmdb.org/t/p/w185${props.image}`} alt={props.alt} />
             }            
         </figure>
     );
