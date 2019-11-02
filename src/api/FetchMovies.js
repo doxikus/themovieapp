@@ -5,7 +5,6 @@ const BASE_URL =
 
 function useFetchMovies () {
     const [movies, setMovies] = useState([]);
-    const [moviesid, setMoviesId] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [number, setNumber] = useState(1);
@@ -23,9 +22,8 @@ function useFetchMovies () {
                 }
             })
             .then(res => {
-                // setMovies(movies.results);
-                setMovies([...movies, ...res.results]);
-                setMoviesId(res.results);
+                // setMovies(res.results);
+                setMovies([...movies, ...res.results]);            
                 setIsLoading(false);  
                               
             })
@@ -36,7 +34,7 @@ function useFetchMovies () {
     const loadMore = () => {
         setNumber(number + 1);
       };    
-    return{movies, moviesid, isLoading, error, loadMore}    
+    return{movies, isLoading, error, loadMore}    
 }
 
 export default useFetchMovies;

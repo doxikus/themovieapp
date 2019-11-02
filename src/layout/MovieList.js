@@ -1,34 +1,19 @@
 import React, { Component } from "react";
+import ReactDOM from "react-dom";
 import useFetchMovies from "../api/FetchMovies";
+import { Link } from "react-router-dom";
+
 import { MovieListContainer, MovieItem, MovieTitle, MovieImage } from "../components";
-
-// class MovieList extends Component {  
-//   render() {
-//     return (
-//       <div>
-//         <h1>MovieList</h1>
-//         <ListFetchedMovies />        
-//       </div>
-//     );
-//   }
-// }
-
-// export default MovieList;
 
 
 function MovieList (){
     
-  const {movies, moviesid, isLoading, error, loadMore} = useFetchMovies()
-  // console.log(movies)
-  console.log(moviesid)
+  const {movies, isLoading, error, loadMore} = useFetchMovies()
   
   if (error) {
       return <p style={{ color: 'red' }}>{error.message}</p>
     }
   
-    if (isLoading) {
-      return <p>Loading movies...</p>
-    }
   
     return (
       <div> 
@@ -37,9 +22,12 @@ function MovieList (){
               <MovieItem key={i}>                    
                   <MovieTitle title={themovie.title} />  
                   <MovieImage image={themovie.poster_path} alt={themovie.title} />
-                                    
+                  <Link to={`/movie/${themovie.id}`}>Show details</Link>                                    
               </MovieItem>                                                
           ))}
+
+          {isLoading && 'Fetching more list items...'}
+
           </MovieListContainer>
           <button title="Load More" onClick={loadMore}>Load 20 more</button>
       </div>

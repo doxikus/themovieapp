@@ -23,6 +23,7 @@ module.exports = {
   },
   // change line
   devServer: {
+    historyApiFallback: true,
     contentBase: path.join(__dirname, 'public')
   }
 };
