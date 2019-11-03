@@ -9,16 +9,17 @@ const BASE_URL =
 const BASE_URL_CONTINUE = 
  "?api_key=016941c41981a8671ff585ff9e4e867e&language=en-US"
  
-  const MovieData = (movie) => {
-
+  const MovieData = ({ match }) => {
+    const {
+      params: { movieId },
+    } = match;
     const [moviedetail, setThemovie] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);    
 
     useEffect(() => {
       setIsLoading(true);
-      // fetch(BASE_URL)
-      fetch(`${BASE_URL}${movie.match.params.movieId}${BASE_URL_CONTINUE}`)
+      fetch(`${BASE_URL}${movieId}${BASE_URL_CONTINUE}`)
           .then(res => {
               if(res.ok){
                   return res.json();
@@ -37,11 +38,9 @@ const BASE_URL_CONTINUE =
           .catch(error => {
               setError(error);
           })             
-  }, [])
+  }, [movieId])
 
-    // const {movies} = useFetchMovies()
-    // console.log(id.match.params.movieId)
-    console.log(moviedetail)
+    // console.log(moviedetail)
     if (error) {
       return <p style={{ color: 'red' }}>{error.message}</p>
     }
